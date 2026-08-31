@@ -1,0 +1,170 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+@theme {
+  --color-ink: #0d1016;
+  --color-surface: #141922;
+  --color-surface-2: #1b2230;
+  --color-line: #2a3142;
+  --color-paper: #e9ecf1;
+  --color-muted: #8891a3;
+  --color-signal: #7c9cff;
+  --color-signal-dim: #4c5f99;
+  --color-amber: #ffb347;
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+body {
+  background-color: var(--color-ink);
+  color: var(--color-paper);
+  font-family: var(--font-body);
+  cursor: none;
+}
+
+@media (hover: none), (pointer: coarse) {
+  body {
+    cursor: auto;
+  }
+}
+
+::selection {
+  background: var(--color-signal);
+  color: var(--color-ink);
+}
+
+/* Custom cursor */
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 999;
+  border-radius: 50%;
+  will-change: transform;
+}
+
+.cursor-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--color-signal);
+  transform: translate(-50%, -50%);
+}
+
+.cursor-ring {
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--color-signal-dim);
+  transform: translate(-50%, -50%);
+  transition: width 0.25s ease, height 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+}
+
+.cursor-ring.is-active {
+  width: 64px;
+  height: 64px;
+  border-color: var(--color-signal);
+  background: rgba(124, 156, 255, 0.08);
+}
+
+.cursor-ring.is-drag {
+  width: 46px;
+  height: 46px;
+  border-color: var(--color-amber);
+  background: rgba(255, 179, 71, 0.1);
+}
+
+@media (hover: none), (pointer: coarse) {
+  .cursor-dot, .cursor-ring {
+    display: none;
+  }
+}
+
+/* Reveal on scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Glitch hover effect for project tiles */
+.glitch-layer {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  mix-blend-mode: screen;
+  opacity: 0;
+}
+
+.tile:hover .glitch-r {
+  animation: glitch-shift-r 0.4s steps(2, end) infinite;
+  opacity: 0.55;
+}
+.tile:hover .glitch-b {
+  animation: glitch-shift-b 0.45s steps(2, end) infinite;
+  opacity: 0.55;
+}
+
+@keyframes glitch-shift-r {
+  0% { transform: translate(0, 0); }
+  50% { transform: translate(3px, -2px); }
+  100% { transform: translate(-2px, 1px); }
+}
+@keyframes glitch-shift-b {
+  0% { transform: translate(0, 0); }
+  50% { transform: translate(-3px, 2px); }
+  100% { transform: translate(2px, -1px); }
+}
+
+.noise-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: rgba(233, 236, 241, 0.5);
+  opacity: 0;
+}
+.tile:hover .noise-line {
+  animation: noise-sweep 0.9s linear infinite;
+  opacity: 0.35;
+}
+@keyframes noise-sweep {
+  0% { top: -2px; }
+  100% { top: 100%; }
+}
+
+/* Drag collage */
+.drag-card {
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+.drag-card:active {
+  cursor: grabbing;
+}
