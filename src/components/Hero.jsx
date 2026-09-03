@@ -1,83 +1,130 @@
-import { useEffect, useState } from 'react';
-import { useParallax } from '../hooks/useParallax';
-import { profile, stats } from '../data/portfolioData';
+import { profile, heroStats, stack, stackHighlight, highlightCards } from '../data/portfolioData';
 
-export default function Hero() {
-  const containerRef = useParallax();
-  const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => {
-    const t = setTimeout(() => setLoaded(true), 80);
-    return () => clearTimeout(t);
-  }, []);
-
+function MagicWord({ children }) {
   return (
-    <section
-      id="top"
-      ref={containerRef}
-      className="relative min-h-[100svh] flex items-end overflow-hidden px-6 md:px-10 pb-16 pt-32"
+    <span className="magic-word text-signal">
+      {children.split('').map((ch, i) => (
+        <span key={i} className="magic-letter" style={{ animationDelay: `${i * 40}ms` }}>
+          {ch}
+        </span>
+      ))}
+    </span>
+  );
+}
+
+function StackChip({ label }) {
+  const highlighted = stackHighlight.has(label);
+  return (
+    <span
+      className={`px-[18px] py-2.5 rounded-full border font-medium text-sm whitespace-nowrap ${
+        highlighted
+          ? 'border-signal/30 bg-signal/10 text-signal-soft'
+          : 'border-white/10 bg-white/[0.03] text-paper/85'
+      }`}
     >
-      {/* parallax backdrop layers */}
-      <div className="absolute inset-0 -z-10">
-        <div
-          data-speed="6"
-          className="absolute top-[12%] right-[8%] w-64 h-64 rounded-full bg-signal/10 blur-3xl"
-        />
-        <div
-          data-speed="-4"
-          className="absolute bottom-[8%] left-[6%] w-72 h-72 rounded-full bg-amber/10 blur-3xl"
-        />
-        <div
-          data-speed="10"
-          className="absolute top-[30%] left-[18%] font-mono text-xs text-signal-dim/60 hidden md:block"
-        >
-          const build = () =&gt; ship();
+      {label}
+    </span>
+  );
+}
+
+export default function Hero({ onWork, onContact }) {
+  return (
+    <section className="max-w-[1240px] mx-auto px-6 md:px-10">
+      <div className="grid md:grid-cols-[1.15fr_0.85fr] gap-10 md:gap-10 items-start min-h-[calc(100svh-74px)]">
+        <div className="py-16 md:py-20">
+          <div className="inline-flex items-center gap-2 px-[13px] py-1.5 rounded-full border border-white/10 bg-white/[0.03] text-[11px] text-muted-2 tracking-wider whitespace-nowrap">
+            <span className="w-1.5 h-1.5 rounded-full bg-mint animate-pulse-dot" />
+            AVAILABLE FOR WORK — {profile.location.toUpperCase()}
+          </div>
+
+          <h1 className="mt-6 font-display font-bold text-paper leading-[0.98] tracking-[-0.035em] text-[13vw] sm:text-[9vw] md:text-[clamp(46px,6.2vw,88px)] text-balance">
+            Full-stack engineer
+            <br />
+            building <MagicWord>interactive</MagicWord>
+            <br />
+            web, mobile &amp; games.
+          </h1>
+
+          <p className="mt-6 max-w-lg text-[16.5px] leading-relaxed text-muted text-pretty">
+            BSc (Hons) IT graduate from the University of Moratuwa. I build responsive
+            applications with React, Next.js, Node and Flutter, and interactive experiences
+            in Unity and Unreal - delivered for 50+ international clients.
+          </p>
+
+          <div className="flex flex-wrap gap-3 mt-8">
+            <button
+              onClick={onWork}
+              className="inline-flex items-center gap-2.5 px-[22px] py-3.5 rounded-xl bg-gradient-to-br from-signal to-signal-dim text-ink font-semibold text-[14.5px] shadow-[0_12px_32px_-12px_rgba(106,166,255,0.7)] hover:-translate-y-0.5 hover:shadow-[0_18px_40px_-12px_rgba(106,166,255,0.85)] transition-all"
+            >
+              View selected work <span className="text-base">→</span>
+            </button>
+            <button
+              onClick={onContact}
+              className="px-[22px] py-3.5 rounded-xl border border-white/15 bg-white/[0.03] text-paper font-medium text-[14.5px] hover:bg-white/[0.08] hover:border-white/25 transition-colors"
+            >
+              Get in touch
+            </button>
+          </div>
+
+          <div className="flex gap-11 mt-14 pt-7 border-t border-line">
+            {heroStats.map((s) => (
+              <div key={s.label}>
+                <div className="font-display font-bold text-[30px] text-paper tracking-tight">
+                  {s.value}
+                </div>
+                <div className="font-mono text-[11px] text-muted-2 mt-1.5 tracking-wider">
+                  {s.label}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
-        <div
-          data-speed="-8"
-          className="absolute bottom-[24%] right-[14%] font-mono text-xs text-amber/50 hidden md:block"
-        >
-          unity.Instantiate(idea);
+
+        <div className="relative hidden md:block self-start mt-16 md:mt-20 min-h-[520px] overflow-hidden">
+          <div className="absolute left-1/2 bottom-[8%] w-[min(420px,88%)] aspect-square -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(106,166,255,0.28),transparent_66%)] blur-[6px]" />
+          <div className="absolute left-1/2 bottom-[6%] w-[min(400px,84%)] aspect-square -translate-x-1/2 rounded-full border border-signal/20" />
+          <div className="absolute left-1/2 bottom-[6%] w-[min(400px,84%)] aspect-square -translate-x-1/2 rounded-full border-t-[1.5px] border-signal/65 animate-spin-slow" />
+          <img
+            src={profile.photo}
+            alt={profile.name}
+            className="relative block w-full max-w-[460px] mx-auto"
+            style={{
+              maskImage: 'linear-gradient(to bottom, #000 82%, transparent 100%)',
+              WebkitMaskImage: 'linear-gradient(to bottom, #000 82%, transparent 100%)',
+            }}
+            onError={(e) => {
+              e.currentTarget.style.display = 'none';
+            }}
+          />
         </div>
       </div>
 
-      <div className="w-full">
-        <p
-          className={`font-mono text-xs text-signal mb-6 transition-all duration-700 ${
-            loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'
-          }`}
-        >
-          {profile.location} — available for freelance work
-        </p>
-
-        <h1
-          className={`font-display font-semibold text-paper leading-[0.95] text-[13vw] md:text-[7.2vw] transition-all duration-[900ms] ${
-            loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}
-        >
-          Full-stack code.
-          <br />
-          Game-shaped thinking.
-        </h1>
-
-        <div
-          className={`mt-8 flex flex-col md:flex-row md:items-end md:justify-between gap-8 transition-all duration-700 delay-150 ${
-            loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-          }`}
-        >
-          <p className="max-w-md text-muted text-base leading-relaxed">
-            {profile.summary}
-          </p>
-
-          <dl className="grid grid-cols-2 gap-x-8 gap-y-4 shrink-0">
-            {stats.map((s) => (
-              <div key={s.label}>
-                <dt className="font-display text-2xl text-paper">{s.value}</dt>
-                <dd className="text-xs text-muted mt-1">{s.label}</dd>
-              </div>
+      <div data-reveal className="reveal pt-2 pb-[74px]">
+        <div className="font-mono text-[11px] text-muted-2 tracking-[.14em] mb-5">/ STACK</div>
+        <div className="overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_8%,#000_92%,transparent)]">
+          <div className="flex w-max gap-3.5 animate-marquee">
+            {[...stack, ...stack].map((item, i) => (
+              <StackChip key={`${item}-${i}`} label={item} />
             ))}
-          </dl>
+          </div>
         </div>
+      </div>
+
+      <div data-reveal className="reveal grid md:grid-cols-3 gap-[18px] pb-24">
+        {highlightCards.map((card) => (
+          <div
+            key={card.title}
+            className="p-7 rounded-[18px] border border-white/[0.08] bg-gradient-to-br from-white/[0.045] to-white/[0.015] hover:border-signal/40 transition-colors"
+          >
+            <div className="font-mono text-[11px] text-signal tracking-[.1em]">
+              {card.index}
+            </div>
+            <h3 className="mt-3.5 mb-2 font-display font-semibold text-[19px] text-paper">
+              {card.title}
+            </h3>
+            <p className="text-sm leading-relaxed text-muted-2">{card.desc}</p>
+          </div>
+        ))}
       </div>
     </section>
   );

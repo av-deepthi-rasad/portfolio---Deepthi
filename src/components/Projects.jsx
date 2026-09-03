@@ -1,25 +1,20 @@
 import { projects } from '../data/portfolioData';
-import ProjectTile from './ProjectTile';
+import ProjectCard from './ProjectCard';
 
-export default function Projects() {
+export default function Projects({ onOpenProject }) {
   return (
-    <section id="work" className="px-6 md:px-10 py-28">
-      <div data-reveal className="reveal mb-14 flex items-end justify-between gap-6 flex-wrap">
-        <div>
-          <span className="font-mono text-xs text-signal">Selected work</span>
-          <h2 className="font-display text-3xl md:text-4xl text-paper mt-4">
-            Things I've shipped
-          </h2>
-        </div>
-        <p className="text-sm text-muted max-w-xs">
-          Hover a tile for a preview clip. Add your own images and clips in{' '}
-          <code className="font-mono text-signal">/public/projects</code>.
-        </p>
-      </div>
+    <section className="max-w-[1240px] mx-auto px-6 md:px-10 pt-[74px] pb-[110px]">
+      <div className="font-mono text-[11px] text-muted-2 tracking-[.14em]">/ SELECTED WORK</div>
+      <h2 className="mt-4 font-display font-bold text-[clamp(38px,4.6vw,62px)] leading-[1.02] tracking-[-0.03em] text-paper">
+        Eight projects, eight stacks.
+      </h2>
+      <p className="mt-4 mb-11 max-w-xl text-base leading-relaxed text-muted">
+        A selection of projects showcasing my experience in full-stack development, mobile applications, AI/ML, and game development.
+      </p>
 
-      <div className="grid md:grid-cols-2 gap-x-8 gap-y-14">
-        {projects.map((project, i) => (
-          <ProjectTile key={project.id} project={project} index={i} />
+      <div className="grid sm:grid-cols-2 gap-[22px]">
+        {projects.map((project) => (
+          <ProjectCard key={project.id} project={project} onOpen={onOpenProject} />
         ))}
       </div>
     </section>

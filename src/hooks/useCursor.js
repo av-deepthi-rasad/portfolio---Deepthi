@@ -1,8 +1,13 @@
 import { useEffect, useRef } from 'react';
 
+// Anything the ring should react to — native controls plus project cards
+// (the only custom clickable element in the app, an <article onClick>).
+const HOVER_SELECTOR = 'a, button, [role="button"], input, textarea, article, [data-cursor]';
+
 /**
- * Drives a two-part custom cursor (dot + trailing ring) via refs,
- * so we never re-render React on every mousemove.
+ * Drives a two-part custom cursor (dot + trailing ring) via refs, so we
+ * never re-render React on every mousemove. The ring eases toward the
+ * pointer and grows/brightens over anything clickable.
  */
 export function useCursor() {
   const dotRef = useRef(null);
@@ -33,22 +38,35 @@ export function useCursor() {
     };
 
     const onOver = (e) => {
-      const target = e.target.closest('[data-cursor]');
-      if (!ringRef.current) return;
-      ringRef.current.classList.remove('is-active', 'is-drag');
-      if (target) {
-        const mode = target.dataset.cursor;
-        ringRef.current.classList.add(mode === 'drag' ? 'is-drag' : 'is-active');
-      }
+      ringRef.current?.classList.toggle('is-active', !!e.target.closest(HOVER_SELECTOR));
+    };
+
+    const onDown = () => ringRef.current?.classList.add('is-down');
+    const onUp = () => ringRef.current?.classList.remove('is-down');
+    const onLeave = () => {
+      dotRef.current?.classList.add('is-hidden');
+      ringRef.current?.classList.add('is-hidden');
+    };
+    const onEnter = () => {
+      dotRef.current?.classList.remove('is-hidden');
+      ringRef.current?.classList.remove('is-hidden');
     };
 
     window.addEventListener('mousemove', onMove, { passive: true });
     window.addEventListener('mouseover', onOver, { passive: true });
+    window.addEventListener('mousedown', onDown);
+    window.addEventListener('mouseup', onUp);
+    document.addEventListener('mouseleave', onLeave);
+    document.addEventListener('mouseenter', onEnter);
     raf = requestAnimationFrame(loop);
 
     return () => {
       window.removeEventListener('mousemove', onMove);
       window.removeEventListener('mouseover', onOver);
+      window.removeEventListener('mousedown', onDown);
+      window.removeEventListener('mouseup', onUp);
+      document.removeEventListener('mouseleave', onLeave);
+      document.removeEventListener('mouseenter', onEnter);
       cancelAnimationFrame(raf);
     };
   }, []);
