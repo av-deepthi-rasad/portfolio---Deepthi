@@ -267,4 +267,23 @@ export const projects = [
       tags: ['Unity', 'C#', 'Game UI', 'Drag & Drop Mechanics', 'Scoring System', 'Progression'],
     },
   },
+  {
+    id: 'math-dash',
+    title: 'Math Dash: Number Quest',
+    year: '2026',
+    blurb: '3D endless-runner teaching math through lane-switching collectibles, dynamic difficulty and Unity animation systems.',
+    tags: ['Unity', 'C#', '3D Endless Runner'],
+    placeholder: 'Math Dash gameplay capture',
+    modal: {
+      kicker: 'EDUCATIONAL GAME DEVELOPMENT · 3D ENDLESS RUNNER · 2026',
+      title: 'Math Dash: Number Quest',
+      body: "A 3D educational endless-runner built in Unity and C#. Players run across three lanes, collect mathematical operation boxes to change their number, and avoid road barriers, while the character's speed and run animation ramp up as the game progresses.",
+      points: [
+        'Three-lane running gameplay with keyboard controls on PC and swipe gestures on mobile.',
+        'Collectible math boxes (addition, subtraction, multiplication, division, power) that change the running number in real time.',
+        'Dynamic difficulty that ramps up movement speed and syncs run animation, with PlayerPrefs-based local high scores.',
+      ],
+      tags: ['Unity', 'C#', 'Unity Animator', 'Unity UI', 'TextMeshPro', 'PlayerPrefs'],
+    },
+  },
 ];
