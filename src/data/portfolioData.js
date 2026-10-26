@@ -286,4 +286,23 @@ export const projects = [
       tags: ['Unity', 'C#', 'Unity Animator', 'Unity UI', 'TextMeshPro', 'PlayerPrefs'],
     },
   },
+  {
+    id: 'early-learners-game-suite',
+    title: 'Early Learners Game Suite',
+    year: '2026',
+    blurb: 'Six standalone HTML5 games for kids 2–7, each with three levels of progressive difficulty and child-friendly UI.',
+    tags: ['HTML5', 'JavaScript', 'Game Logic'],
+    placeholder: 'Early Learners Game Suite screens',
+    modal: {
+      kicker: 'CLIENT PROJECT (US) · EDUCATIONAL GAME SUITE · 2026',
+      title: 'Early Learners Game Suite',
+      body: 'A suite of 6 interactive HTML5 educational games for children aged 2–7, built for a US client with progressive difficulty across 3 levels per game, child-friendly UI/UX, animations, and interactive feedback.',
+      points: [
+        'Six standalone games, each with 3 levels of progressive difficulty, scoring and answer validation.',
+        'Child-friendly visual design with animations and interactive feedback tuned for ages 2–7.',
+        'Responsive, touch-friendly interfaces built as modular, self-contained games for easy integration into existing websites.',
+      ],
+      tags: ['HTML5', 'CSS3', 'JavaScript (ES6+)', 'DOM Manipulation', 'Responsive UI Design', 'Game Logic', 'Event Handling'],
+    },
+  },
 ];
