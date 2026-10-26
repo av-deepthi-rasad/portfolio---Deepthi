@@ -1,6 +1,6 @@
 export const profile = {
   name: 'Deepthi Rasad',
-  role: 'Software Engineer',
+  role: 'Software Engineer · Game Developer',
   location: 'Sri Lanka',
   email: 'deepthirasad@gmail.com',
   phone: '+94 76 5733123',
