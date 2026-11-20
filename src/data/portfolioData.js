@@ -305,4 +305,42 @@ export const projects = [
       tags: ['HTML5', 'CSS3', 'JavaScript (ES6+)', 'DOM Manipulation', 'Responsive UI Design', 'Game Logic', 'Event Handling'],
     },
   },
+  {
+    id: 'kalam-kids',
+    title: 'KALAM Kids – Speak & Win!',
+    year: '2026',
+    blurb: 'English-speaking game for kids 6–12 with 30 mic-recorded speaking activities across 3 levels, earning a star each time.',
+    tags: ['HTML5', 'JavaScript', 'Game Logic'],
+    placeholder: 'KALAM Kids screens',
+    modal: {
+      kicker: 'FIVERR CLIENT PROJECT (US) · ENGLISH-SPEAKING GAME · 2026',
+      title: 'KALAM Kids – Speak & Win!',
+      body: "An interactive English-speaking game for children aged 6–12, built for a US Fiverr client — Linglo Speaksy's KALAM Kids programme. Children listen to a question, record their spoken answer with the microphone, and earn a star for every activity completed — 3 levels with 10 speaking activities each, 30 in total.",
+      points: [
+        'Three levels with 10 speaking activities each — 30 total — prompting kids to listen and respond aloud.',
+        'In-browser microphone recording with instant star rewards for every completed activity.',
+        "Built for a US Fiverr client — Linglo Speaksy's KALAM Kids programme — as a child-friendly, listen-and-speak learning game.",
+      ],
+      tags: ['HTML5', 'CSS3', 'JavaScript', 'Web Audio API', 'MediaRecorder API', 'Game Logic'],
+    },
+  },
+  {
+    id: 'the-guardians',
+    title: 'The Guardians – Educational Game Collection',
+    year: '2026',
+    blurb: 'Three educational HTML5 games teaching vocabulary, word categories and grammar, with shared Firebase player profiles and leaderboards.',
+    tags: ['HTML5', 'JavaScript', 'Firebase'],
+    placeholder: 'The Guardians collection screens',
+    modal: {
+      kicker: 'FIVERR CLIENT PROJECT (US) · EDUCATIONAL GAME COLLECTION · 2026',
+      title: 'The Guardians – Educational Game Collection',
+      body: 'A collection of interactive, browser-based educational games built for a US Fiverr client, making learning English fun for children — word recognition, vocabulary and grammar challenges built as independent modules sharing one Firebase backend. Each game ships with its own scoring, timers and leaderboards, tied together by shared player profiles and global player identity.',
+      points: [
+        'The Guardians – Odd One Out: a 90-second vocabulary recognition challenge.',
+        "Orla's Crossbow – Word Challenge: an interactive word-shooting game for identifying word categories.",
+        'The Tenses Challenge: a grammar game teaching present, past and past participle verb forms.',
+      ],
+      tags: ['HTML5', 'CSS3', 'JavaScript (ES6+)', 'Firebase', 'Cloud Firestore', 'Firebase Authentication'],
+    },
+  },
 ];
